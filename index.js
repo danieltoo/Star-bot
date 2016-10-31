@@ -13,6 +13,7 @@ app.get("/", function (req,res) {
 app.get("/catche", function (req, res) {
 	var msg =req.query.mensaje; 
 	var status = false;
+	//****Respuestas con sonido
 	if (msg =="Hola" || msg=="hola"){ //comando 0
 		console.log("Ejecutando 0");
 		var command = 'mpg123 sounds/hola.mp3';
@@ -31,15 +32,71 @@ app.get("/catche", function (req, res) {
 		child = exec("mpg123 sounds/torres.mp3");
 		status=true;
 	}
-	else if (msg =="dime las leyes" || msg=="Dime las leyes"){ //comando 2
-		console.log("Ejecutando 3");
+
+	else if (msg =="dime las tres leyes" || msg=="dime las leyes"){ //comando 2
+		console.log("Ejecutando 2");
 		var child = exec("mpg123 sounds/ley1.mp3");
 		child = exec("mpg123 sounds/ley2.mp3");
 		child = exec("mpg123 sounds/ley3.mp3");	
 		status=true;
 	}
+	else if (msg =="Cómo te llamas" || msg=="Cuál es tu nombre"){ //comando 3
+		console.log("Ejecutando 3");
+		var child = exec("mpg123 sounds/nombre.mp3");
+		status=true;
+	}
+	else if (msg =="cómo te crearon" || msg=="Cómo fuiste hecho" || msg=="como fuiste hecho"){ //comando 4
+		console.log("Ejecutando 4");
+		var child = exec("mpg123 sounds/hardware.mp3");
+		child = exec("mpg123 sounds/software.mp3");
+		status=true;
+	}
+	else if (msg =="cuál es tu misión"){ //comando 5
+		console.log("Ejecutando 5");
+		var child = exec("mpg123 sounds/mision.mp3");
+		status=true;
+	}
+	// Acciones 
+	else if (msg =="adelante"){ //comando adelante
+		console.log("Ejecutando 6");
+		var child = exec("python3 serialwww.py a");
+		status=true;
+	}
+	else if (msg =="derecha" || msg =="derecho"){ //comando derecha
+		console.log("Ejecutando 7");
+		var child = exec("python3 serialwww.py b");
+		status=true;
+	}
+	else if (msg =="izquierda"){ //comando izquierda
+		console.log("Ejecutando 8");
+		var child = exec("python3 serialwww.py c");
+		status=true;
+	}
+	else if (msg =="alto"){ //comando alto
+		console.log("Ejecutando 9");
+		var child = exec("python3 serialwww.py d");
+		status=true;
+	}
+	
+	//extras 
+	else if (msg =="procesa" || msg =="proceso"){ //procesa
+		console.log("Ejecutando procesa");
+		var child = exec("mpg123 sounds/R2-D2Procesing.mp3");
+		status=true;
+	}
+	else if (msg =="confirma" || msg =="confirman"){ //confirma
+		console.log("Ejecutando procesa");
+		var child = exec("mpg123 sounds/R2D2-CONFIRM.mp3");
+		status=true;
+	}
+	else if (msg =="estás alterado" || msg=="estás alterada"){ //confirma
+		console.log("Ejecutando procesa");
+		var child = exec("mpg123 sounds/R2-D2alterado.mp3");
+		status=true;
+	}
 	else {
 		var child = exec("mpg123 sounds/respuestas-limitadas.mp3");
+
 	}
 	
 	res.header("Access-Control-Allow-Origin", "*");

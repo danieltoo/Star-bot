@@ -60,7 +60,7 @@
                     }
                     $.getJSON('http://localhost:3000/catche', datos , function(data) {
                         if (data['status']==true){
-                            Push.create('El servidor  dice Hola');
+                            Push.create('El servidor dice Hola');
                         }else{
                            Push.create('El servidor dice mal educado'); 
                         } 
