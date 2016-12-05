@@ -1,0 +1,71 @@
+doctype html
+html
+  head
+    title
+      | Control manual
+    | &#x9;
+    script(type='text/javascript', src='/static/assets/js/jquery-1.12.3.min.js')
+    | &#x9;
+    script(type='text/javascript').
+      $(function() {
+      $("#adelante").click(function (e) {
+      var datos = {
+      "mensaje": "adelante"
+      }
+      $.getJSON('http://192.168.0.27:3000/catche', datos , function(data) {
+      if (data['status']==true){
+      Push.create('Comando ejecutado exitosamente');
+      }else{
+      Push.create('Comando no encontrado');
+      }
+      });
+      return false;
+      });
+      $("#izquierda").click(function (e) {
+      var datos = {
+      "mensaje": "izquierda"
+      }
+      $.getJSON('http://192.168.0.27:3000/catche', datos , function(data) {
+      if (data['status']==true){
+      Push.create('Comando ejecutado exitosamente');
+      }else{
+      Push.create('Comando no encontrado');
+      }
+      });
+      return false;
+      });
+      $("#derecha").click(function (e) {
+      var datos = {
+      "mensaje": "derecha"
+      }
+      $.getJSON('http://192.168.0.27:3000/catche', datos , function(data) {
+      if (data['status']==true){
+      Push.create('Comando ejecutado exitosamente');
+      }else{
+      Push.create('Comando no encontrado');
+      }
+      });
+      return false;
+      });
+      $("#alto").click(function (e) {
+      var datos = {
+      "mensaje": "alto"
+      }
+      $.getJSON('http://192.168.0.27:3000/catche', datos , function(data) {
+      if (data['status']==true){
+      Push.create('Comando ejecutado exitosamente');
+      }else{
+      Push.create('Comando no encontrado');
+      }
+      });
+      return false;
+      });
+      });
+  body
+    a#adelante(href='#') Adelante
+    |  
+    a#derecha(href='#')  Derecha
+    |  
+    a#izquierda(href='#') Izquierda
+    |  
+    a#alto(href='#') Alto

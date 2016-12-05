@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="/static/js/speech.js"></script>
+        <script src="/static/js/push.js"></script>
+        <script type="text/javascript" src="/static/js/jquery-1.12.3.min.js"></script>
+        <script src="/static/js/app.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-flex.css">
+        <style>
+            body {
+                font-family: 'Helvetica Neue', Arial, sans-serif;
+            }
+            #text {
+                font-size: 50px;
+                letter-spacing: -3px;
+                text-align: center;
+                margin: 0;
+                position: absolute;
+                width: 100%;
+                top: 20%;
+            }
+            p {
+                font-weight: bold;
+                text-align: center;
+                font-size: 13px;
+                color: #999;
+            }
+            
+        </style>
+    </head>
+    <body>
+      <nav class="navbar navbar-dark ">
+        <ul class="nav navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown link
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+     
+      <h1 id="text">Por favor otorga permisos para usar el micrófono.</h1>
+      <div id="status"></div>
+
+      <script type="text/javascript">
+          var text = document.getElementById('text')
+        var speech = new Speech({
+          lang: 'es-MX',
+          debugging: true,
+          continuous: true,
+          interimResults: true,
+          autoRestart: true
+        })
+        speech
+          .on('start', function () {
+            text.innerHTML = 'Vamos, habla conmigo.'
+          })
+          .on('end', function () {
+            text.innerHTML = 'Microfono detenido.';
+          })
+          .on('interimResult', function (msg) {
+            text.innerHTML = msg;
+          })
+          .on('finalResult', function (msg) {
+            text.innerHTML = msg;
+            var datos = {
+              "mensaje": msg
+            }
+            $.getJSON('http://localhost:3000/catche', datos , function(data) {
+              if (data['status']==true){
+                Push.create('Comando ejecutado exitosamente');
+              }else{
+                Push.create('Comando no encontrado');
+              }
+            });
+            location.reload();
+            })
+        .start()
+
+      </script>
+    </body>
+</html>

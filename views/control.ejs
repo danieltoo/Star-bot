@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Control manual
+	</title>
+	<script type='text/javascript' src='/static/assets/js/jquery-1.12.3.min.js'></script>
+	<script type="text/javascript">
+	$(function() {
+		$("#adelante").click(function (e) {
+			var datos = {
+            	"mensaje": "adelante"
+          	}
+			$.getJSON('http://localhost:3000/catche', datos , function(data) {
+	            if (data['status']==true){
+	              Push.create('Comando ejecutado exitosamente');
+	            }else{
+	              Push.create('Comando no encontrado');
+	            }
+          	});
+			return false;
+		});
+		$("#izquierda").click(function (e) {
+			var datos = {
+            	"mensaje": "izquierda"
+          	}
+			$.getJSON('http://localhost:3000/catche', datos , function(data) {
+	            if (data['status']==true){
+	              Push.create('Comando ejecutado exitosamente');
+	            }else{
+	              Push.create('Comando no encontrado');
+	            }
+         	});
+			return false;
+		});
+		$("#derecha").click(function (e) {
+			var datos = {
+            	"mensaje": "derecha"
+          	}
+			$.getJSON('http://localhost:3000/catche', datos , function(data) {
+	            if (data['status']==true){
+	              Push.create('Comando ejecutado exitosamente');
+	            }else{
+	              Push.create('Comando no encontrado');
+	            }
+          	});
+			return false;
+		});
+		$("#alto").click(function (e) {
+			var datos = {
+            	"mensaje": "alto"
+          	}
+			$.getJSON('http://localhost:3000/catche', datos , function(data) {
+	            if (data['status']==true){
+	              Push.create('Comando ejecutado exitosamente');
+	            }else{
+	              Push.create('Comando no encontrado');
+	            }
+          	});
+			return false;
+		});
+
+
+	});
+		
+
+	</script>
+</head>
+<body>
+ <a href="#" id="adelante">Adelante</a>
+ <a href="#" id="derecha"> Derecha</a>
+ <a href="#" id="izquierda">Izquierda</a>
+ <a href="#" id="alto">Alto</a>
+
+</body>
+</html>

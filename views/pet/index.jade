@@ -1,0 +1,72 @@
+doctype html
+html
+  head
+    title
+    |         
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    |         
+    script(src='/static/assets/js/speech.js')
+    |         
+    script(src='/static/assets/js/push.js')
+    |         
+    script(type='text/javascript', src='/static/assets/js/jquery-1.12.3.min.js')
+    |         
+    style.
+      body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      }
+      #text {
+      font-size: 50px;
+      letter-spacing: -3px;
+      text-align: center;
+      margin: 0;
+      position: absolute;
+      width: 100%;
+      top: 20%;
+      }
+      p {
+      font-weight: bold;
+      text-align: center;
+      font-size: 13px;
+      color: #999;
+      }
+  |     
+  body
+    h1#text Por favor otorga permisos para usar el micr&oacute;fono.
+    |         
+    #status
+    |         
+    script(type='text/javascript').
+      var text = document.getElementById('text')
+      var speech = new Speech({
+      lang: 'es-MX',
+      debugging: true,
+      continuous: true,
+      interimResults: true,
+      autoRestart: true
+      })
+      speech
+      .on('start', function () {
+      text.innerHTML = 'Vamos, habla conmigo.'
+      })
+      .on('end', function () {
+      text.innerHTML = 'Microfono detenido.';
+      })
+      .on('interimResult', function (msg) {
+      text.innerHTML = msg;
+      })
+      .on('finalResult', function (msg) {
+      text.innerHTML = msg;
+      var datos = {
+      "mensaje": msg
+      }
+      $.getJSON('http://localhost:3000/catche', datos , function(data) {
+      if (data['status']==true){
+      Push.create('Comando ejecutado exitosamente');
+      }else{
+      Push.create('Comando no encontrado');
+      }
+      });
+      location.reload();
+      })
+      .start()

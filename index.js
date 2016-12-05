@@ -2,17 +2,25 @@ var express = require("express");
 var exec = require('execSync').exec;
 var app = express(); 
 
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 app.use("/static",express.static('public'));
+
 
 app.get("/", function (req,res) { 
 	res.render("index");
+});
+app.get("/temp", function (req,res) { 
+	res.render("indextemp");
+});
+app.get("/control", function (req,res) { 
+	res.render("control");
 
 });
 
 app.get("/catche", function (req, res) {
 	var msg =req.query.mensaje; 
 	var status = false;
+	console.log("REcibido");
 	//****Respuestas con sonido
 	if (msg =="Hola" || msg=="hola"){ //comando 0
 		console.log("Ejecutando 0");
@@ -98,10 +106,8 @@ app.get("/catche", function (req, res) {
 		var child = exec("mpg123 sounds/respuestas-limitadas.mp3");
 
 	}
-	
 	res.header("Access-Control-Allow-Origin", "*");
 	res.send({'status': status});
-
 });
 
 app.use (function (req, res) { 
